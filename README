@@ -19,9 +19,12 @@ require 'upcoming'
 Upcoming::Event.apikey = "<your API key>"
 e = Upcoming::Event.find_by_event_id <event id>
 
+NOTE - The apikey needs to be set just once for multiple API calls.
+
 Dependencies:
 XmlSimplea (Currently assumed to come via RubyGems)
 Net::Http
+CGI
 
 Caveats:
 Because Rails comes with a slightly different version of XmlSimple, the
@@ -30,9 +33,7 @@ project.
 
 Todo:
 * Add test suite
-* Implement full Event.search functionality
 * Create gem
-* Implement all public functions for Event, Metro, State, Country, 
-  Venue, and Category
+* Implement Category.getList
 * Implement Auth functionality
 * Complete remaining API
