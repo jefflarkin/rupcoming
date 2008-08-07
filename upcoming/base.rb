@@ -55,7 +55,12 @@ module Upcoming
       url = "http://upcoming.yahooapis.com/services/rest/?api_key=#{@@apikey}"
       begin 
         data = Net::HTTP.get_response(URI.parse("#{url}#{url_options}")).body
-        XmlSimple.xml_in(data)#['event']
+        hash = XmlSimple.xml_in(data)
+        if hash['error']
+          nil
+        else
+          hash
+        end
       rescue
         nil
       end

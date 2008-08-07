@@ -14,16 +14,16 @@ module Upcoming
         self.find_by_venue_id(options['venue_id'], per_page)
       end
     end
-    # Implements the Event.getEventInfo method
-    def self.getEventInfo(event_id)
+    # Implements the Event.getInfo method
+    def self.getInfo(event_id)
       url_options = "&method=event.getInfo&event_id=#{event_id}"
-      results = remote_fetch(url_options)['event']
-      Event.new(results[0]) unless results.nil?
+      results = remote_fetch(url_options)
+      Event.new(results['event'][0]) unless results.nil?
     end
-    # Alias for the Event.getEventInfo method, intended to emulate
+    # Alias for the Event.getInfo method, intended to emulate
     # ActiveRecord behavior
     def self.find_by_event_id(event_id)
-      getEventInfo(event_id)
+      getInfo(event_id)
     end
 
     # Implements Event.search.  Pass a Hash of options, as documented
@@ -36,7 +36,7 @@ module Upcoming
       end
       events = []
       result =  remote_fetch(url_options)
-      if result['event'].nil?
+      if result.nil? || result['event'].nil?
         nil
       else
         result['event'].each do |event|

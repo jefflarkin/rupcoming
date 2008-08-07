@@ -1,2 +1,7 @@
 require 'upcoming/base'
+require 'upcoming/category'
+require 'upcoming/country'
 require 'upcoming/event'
+require 'upcoming/metro'
+require 'upcoming/state'
+require 'upcoming/venue'
