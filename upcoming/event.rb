@@ -1,3 +1,4 @@
+require 'cgi'
 # Author:: Jeff larkin (mailto: jeff.larkin@gmail.com)
 # Copyright:: Copyright (c) 2008 Jeff Larkin
 # License:: MIT License
@@ -24,23 +25,31 @@ module Upcoming
     def self.find_by_event_id(event_id)
       getEventInfo(event_id)
     end
-    # Parital implementation of the Event.search method for finding
-    # events for a venue.  Intended to emulate ActiveRecord find
-    # behavior.
-    # FIXME: per_page should probably be renamed limit, like AR
-    def self.find_by_venue_id(venue_id, per_page=5)
-      url_options = "&method=event.search&venue_id=#{venue_id}&per_page=#{per_page}"
+
+    # Implements Event.search.  Pass a Hash of options, as documented
+    # by the Upcoming.org API.  This method does not check that the
+    # options passed are valid options to Event.search.
+    def self.search(options = {})
+      url_options = "&method=event.search"
+      options.each do |key,val|
+        url_options << "&#{key}=#{CGI.escape(val.to_s)}" unless val.nil?
+      end
       events = []
       result =  remote_fetch(url_options)
       if result['event'].nil?
         nil
       else
         result['event'].each do |event|
-          pp event
           events << Event.new(event)
         end
         events
       end
+    end
+    # Parital implementation of the Event.search method for finding
+    # events for a venue.  Intended to emulate ActiveRecord find
+    # behavior.
+    def self.find_by_venue_id(venue_id, limit=5)
+      search :venue_id => venue_id, :per_page => limit
     end
   end
 end
