@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'xmlsimple'
 require 'net/http'
-require 'pp'
 # Author:: Jeff larkin (mailto: jeff.larkin@gmail.com)
 # Copyright:: Copyright (c) 2008 Jeff Larkin
 # License:: MIT License
