@@ -1,3 +1,4 @@
+# -*- vim: sw=2 ts=2 expandtabs
 require 'cgi'
 # Author:: Jeff larkin (mailto: jeff.larkin@gmail.com)
 # Copyright:: Copyright (c) 2008 Jeff Larkin

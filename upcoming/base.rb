@@ -1,3 +1,4 @@
+# -*- vim: sw=2 ts=2 expandtabs
 require 'rubygems'
 require 'xmlsimple'
 require 'net/http'
